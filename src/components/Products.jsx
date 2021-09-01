@@ -9,7 +9,7 @@ export default class Products extends Component {
           const { title, image, _id, price } = product;
 
           return (
-            <div key={_id} className="col-3 mb-4">
+            <div key={_id} className="col-3 mb-4 ">
               <div className="card">
                 <img src={image} alt={title} className="img-fluid" />
                 <div className="card-body">
