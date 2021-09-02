@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Filter from "./components/Filter";
 import Products from "./components/Products";
+import Cart from "./components/Cart";
 import data from "./data.json";
 
 class App extends Component {
@@ -8,11 +9,30 @@ class App extends Component {
     super();
     this.state = {
       products: data.products,
+      cartItems: [],
       size: "",
       sort: "",
     };
   }
-
+  removFromCart = (item) => {
+    const cart = this.state.cartItems;
+    const cartItems = cart.filter((newItem) => newItem._id !== item._id);
+    this.setState({ cartItems });
+  };
+  addProduct = (product) => {
+    const cartItems = this.state.cartItems;
+    let allredyAdd = false;
+    cartItems.forEach((item) => {
+      if (item._id === product._id) {
+        item.count++;
+        allredyAdd = true;
+      }
+    });
+    if (!allredyAdd) {
+      cartItems.push({ ...product, count: 1 });
+    }
+    this.setState({ cartItems });
+  };
   filterProducts = (event) => {
     if (event.target.value === "ALL") {
       this.setState({
@@ -61,10 +81,16 @@ class App extends Component {
                     sortProducts={this.sortProducts}
                   />
                 </div>
-                <Products products={this.state.products}></Products>{" "}
+                <Products
+                  products={this.state.products}
+                  addProduct={this.addProduct}
+                />
               </div>
               <div className="col-2">
-                <h1>right</h1>{" "}
+                <Cart
+                  cartItems={this.state.cartItems}
+                  removFromCart={this.removFromCart}
+                />
               </div>
             </div>
           </div>
