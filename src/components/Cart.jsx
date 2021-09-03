@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Fade from "react-reveal/Fade";
 
 export default class Cart extends Component {
   state = {
@@ -36,29 +37,33 @@ export default class Cart extends Component {
             <div className=" shadow  my-4 py-1 fs-5 text-center">
               you have {cartItems.length} in the cart{" "}
             </div>
-            {cartItems.map((item) => {
-              const { image, _id, title, price, count } = item;
-              return (
-                <div
-                  key={_id}
-                  className="row align-items-center shadow-sm py-2 "
-                >
-                  <div className="col-4 ">
-                    <img src={image} alt={title} className="img-fluid" />
-                  </div>
-                  <div className="col m-0 p-0">
-                    <span className="d-block lh-1">{title}</span>
-                    <span>${price + " x " + count}</span>
-                    <button
-                      onClick={() => this.props.removFromCart(item)}
-                      className="ms-1 btn btn-sm btn-warning"
+            <Fade left cascade>
+              <div>
+                {cartItems.map((item) => {
+                  const { image, _id, title, price, count } = item;
+                  return (
+                    <div
+                      key={_id}
+                      className="row align-items-center shadow-sm py-2 "
                     >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                      <div className="col-4 ">
+                        <img src={image} alt={title} className="img-fluid" />
+                      </div>
+                      <div className="col m-0 p-0">
+                        <span className="d-block lh-1">{title}</span>
+                        <span>${price + " x " + count}</span>
+                        <button
+                          onClick={() => this.props.removFromCart(item)}
+                          className="ms-1 btn btn-sm btn-warning"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Fade>
             <div className="text-center mt-3">
               <span>
                 Totl: $
@@ -75,48 +80,52 @@ export default class Cart extends Component {
                 Proced
               </button>
             </div>
-            {this.state.showCheckout && (
-              <div className="shadow p-1 mt-2">
-                <form onSubmit={this.createOrder}>
-                  <label className="form-label" htmlFor="email">
-                    Email :
-                  </label>
-                  <input
-                    required
-                    className="form-control"
-                    name="email"
-                    type="email"
-                    onChange={this.handelInput}
-                  />
-                  <label className="form-label" htmlFor="name">
-                    Name :
-                  </label>
-                  <input
-                    required
-                    className="form-control"
-                    name="name"
-                    type="text"
-                    onChange={this.handelInput}
-                  />
-                  <label className="form-label" htmlFor="adress">
-                    Address :
-                  </label>
-                  <input
-                    required
-                    className="form-control"
-                    name="adress"
-                    type="text"
-                    onChange={this.handelInput}
-                  />
-                  <button
-                    className="btn btn-sm btn-success mt-2 w-100"
-                    type="submit"
-                  >
-                    CheckOut
-                  </button>
-                </form>
+            <Fade right cascade>
+              <div>
+                {this.state.showCheckout && (
+                  <div className="shadow p-1 mt-2">
+                    <form onSubmit={this.createOrder}>
+                      <label className="form-label" htmlFor="email">
+                        Email :
+                      </label>
+                      <input
+                        required
+                        className="form-control"
+                        name="email"
+                        type="email"
+                        onChange={this.handelInput}
+                      />
+                      <label className="form-label" htmlFor="name">
+                        Name :
+                      </label>
+                      <input
+                        required
+                        className="form-control"
+                        name="name"
+                        type="text"
+                        onChange={this.handelInput}
+                      />
+                      <label className="form-label" htmlFor="adress">
+                        Address :
+                      </label>
+                      <input
+                        required
+                        className="form-control"
+                        name="adress"
+                        type="text"
+                        onChange={this.handelInput}
+                      />
+                      <button
+                        className="btn btn-sm btn-success mt-2 w-100"
+                        type="submit"
+                      >
+                        CheckOut
+                      </button>
+                    </form>
+                  </div>
+                )}
               </div>
-            )}
+            </Fade>
           </>
         )}
       </div>
